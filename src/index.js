@@ -14,9 +14,7 @@ import {
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { VRM, VRMSchema } from "@pixiv/three-vrm";
-import FaceFilter from "facefilter/dist/jeelizFaceFilter.module.js";
-import Resizer from "facefilter/helpers/JeelizResizer.js";
-import NNC from "facefilter/neuralNets/NN_DEFAULT.json";
+import FaceFilterController from "./FaceFilterController.js";
 
 const width = 800;
 const height = 600;
@@ -89,11 +87,21 @@ loader.load(
 const clock = new Clock();
 clock.start();
 
+/* ---- animation */
+
+const state = {
+  rotation: [0, 0, 0],
+  expression: { A: 0 },
+};
+
 function update () {
   requestAnimationFrame(update);
   const delta = clock.getDelta();
   if (vrm) {
     vrm.update(delta);
+    vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName.A, state.expression.A);
+    const head = vrm.humanoid.getBoneNode(VRMSchema.HumanoidBoneName.Head);
+    head.rotation.set(...state.rotation, 'ZXY');
     const blink = Math.max(0.0, 1.0 - 10.0 * Math.abs((clock.getElapsedTime() % 4.0) - 2.0));
     vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName.Blink, blink);
   }
@@ -101,42 +109,4 @@ function update () {
 };
 update();
 
-/* ---- mouse */
-
-renderer.domElement.addEventListener('mousemove', event => {
-  if (vrm) {
-    const x = event.clientX / renderer.domElement.clientWidth;
-    vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName.Fun, x);
-    const y = event.clientY / renderer.domElement.clientHeight;
-    vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName.Sorrow, y);
-  }
-});
-
-/* ---- face recognition */
-
-const jeelizCanvas = document.createElement('canvas');
-
-Resizer.size_canvas({
-  canvas: jeelizCanvas,
-  callback: () => {
-    FaceFilter.init({
-      canvas: jeelizCanvas,
-      NNC: NNC,
-      followZRot: true,
-      maxFacedDetected: 1,
-      callbackReady: (error) => {
-        if (error) {
-          console.error(error);
-        }
-      },
-      callbackTrack: (state) => {
-        if (vrm) {
-          const head = vrm.humanoid.getBoneNode(VRMSchema.HumanoidBoneName.Head);
-          head.rotation.set(-state.rx, -state.ry, state.rz, 'ZXY');
-          const expressionA = state.expressions[0];
-          vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName.A, expressionA);
-        }
-      },
-    });
-  }
-});
+new FaceFilterController(state).control();
