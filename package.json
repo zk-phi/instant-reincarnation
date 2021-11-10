@@ -6,7 +6,7 @@
   "dependencies": {
     "@pixiv/three-vrm": "^0.6.7",
     "face-api.js": "^0.22.2",
-    "facefilter": "^2.1.8",
+    "facefilter": "jeeliz/jeelizFaceFilter#3ba5e3c",
     "three": "^0.133.1"
   },
   "devDependencies": {
