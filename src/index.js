@@ -45,6 +45,27 @@ scene.add(new AxesHelper(0.5));
 const light = new AmbientLight(0xffffff, 10.0);
 scene.add(light);
 
+const pose = {
+  [VRMSchema.HumanoidBoneName.LeftShoulder]: {
+    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 0.2)).toArray()
+  },
+  [VRMSchema.HumanoidBoneName.RightShoulder]: {
+    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -0.2)).toArray()
+  },
+  [VRMSchema.HumanoidBoneName.LeftUpperArm]: {
+    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 1.1)).toArray()
+  },
+  [VRMSchema.HumanoidBoneName.RightUpperArm]: {
+    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -1.1)).toArray()
+  },
+  [VRMSchema.HumanoidBoneName.LeftLowerArm]: {
+    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 0.1)).toArray()
+  },
+  [VRMSchema.HumanoidBoneName.RightLowerArm]: {
+    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -0.1)).toArray()
+  },
+};
+
 let vrm;
 const loader = new GLTFLoader();
 loader.load(
@@ -54,28 +75,7 @@ loader.load(
     scene.add(vrm.scene);
     const hips = vrm.humanoid.getBoneNode(VRMSchema.HumanoidBoneName.Hips);
     hips.rotation.y = Math.PI;
-    vrm.humanoid.setPose({
-      [VRMSchema.HumanoidBoneName.LeftShoulder]: {
-        rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 0.2)).toArray()
-      },
-      [VRMSchema.HumanoidBoneName.RightShoulder]: {
-        rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -0.2)).toArray()
-      },
-      [VRMSchema.HumanoidBoneName.LeftUpperArm]: {
-        rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 1.1)).toArray()
-      },
-      [VRMSchema.HumanoidBoneName.RightUpperArm]: {
-        rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -1.1)).toArray()
-      },
-      [VRMSchema.HumanoidBoneName.LeftLowerArm]: {
-        rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 0.1)).toArray()
-      },
-      [VRMSchema.HumanoidBoneName.RightLowerArm]: {
-        rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -0.1)).toArray()
-      },
-    });
-    const head = vrm.humanoid.getBoneNode(VRMSchema.HumanoidBoneName.Head);
-    camera.position.set(0.0, head.getWorldPosition(new Vector3()).y, 2.0);
+    vrm.humanoid.setPose(pose);
     vrm.lookAt.target = camera;
   },
   progress => {
