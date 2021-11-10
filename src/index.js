@@ -11,6 +11,7 @@ import {
   AxesHelper,
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { VRM, VRMSchema } from "@pixiv/three-vrm";
 import FaceFilter from "facefilter/dist/jeelizFaceFilter.module.js";
 import Resizer from "facefilter/helpers/JeelizResizer.js";
@@ -28,12 +29,17 @@ renderer.setPixelRatio(devicePixelRatio);
 renderer.setClearColor(0xffffff);
 document.body.appendChild(renderer.domElement);
 
-const camera = new PerspectiveCamera(30, width / height, 0.01, 20);
-camera.position.set(0, 0, 5);
+const camera = new PerspectiveCamera(35, width / height, 0.1, 1000);
+camera.position.set(0, 1.1, 3);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 0.85, 0);
+controls.screenSpacePanning = true;
+controls.update();
 
 const scene = new Scene();
 scene.add(new GridHelper(10, 10));
-scene.add(new AxesHelper(5));
+scene.add(new AxesHelper(0.5));
 
 const light = new DirectionalLight(0xffffff);
 light.position.set(1.0, 1.0, 1.0).normalize();
