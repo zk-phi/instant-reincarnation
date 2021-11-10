@@ -15,6 +15,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { VRM, VRMSchema } from "@pixiv/three-vrm";
 import FaceFilterController from "./FaceFilterController.js";
+import FaceExpressionsController from "./FaceExpressionsController.js";
 
 const width = 800;
 const height = 600;
@@ -91,7 +92,7 @@ clock.start();
 
 const state = {
   rotation: [0, 0, 0],
-  expression: { A: 0 },
+  expression: { A: 0, BlinkL: 0, BlinkR: 0 },
 };
 
 function update () {
@@ -100,13 +101,14 @@ function update () {
   if (vrm) {
     vrm.update(delta);
     vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName.A, state.expression.A);
+    vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName.BlinkL, state.expression.BlinkL);
+    vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName.BlinkR, state.expression.BlinkR);
     const head = vrm.humanoid.getBoneNode(VRMSchema.HumanoidBoneName.Head);
     head.rotation.set(...state.rotation, 'ZXY');
-    const blink = Math.max(0.0, 1.0 - 10.0 * Math.abs((clock.getElapsedTime() % 4.0) - 2.0));
-    vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName.Blink, blink);
   }
   renderer.render(scene, camera);
 };
 update();
 
-new FaceFilterController(state).control();
+/* new FaceFilterController(state).control(); */
+new FaceExpressionsController(state).control();
