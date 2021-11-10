@@ -19,9 +19,13 @@ import NNC from "facefilter/neuralNets/NN_DEFAULT.json";
 const width = 800;
 const height = 600;
 
-const renderer = new WebGLRenderer();
-renderer.setClearColor(0x333333);
+const renderer = new WebGLRenderer({
+  antialias: true,
+  alpha: true,
+});
 renderer.setSize(width, height);
+renderer.setPixelRatio(devicePixelRatio);
+renderer.setClearColor(0xffffff);
 document.body.appendChild(renderer.domElement);
 
 const camera = new PerspectiveCamera(30, width / height, 0.01, 20);
