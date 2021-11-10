@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "build": "esbuild --bundle src/index.js --outfile=dist/main.js",
+    "start": "esbuild --bundle src/index.js --outfile=dist/main.js --servedir=dist"
+  },
   "dependencies": {
     "face-api.js": "^0.22.2",
     "facefilter": "^2.1.8",
