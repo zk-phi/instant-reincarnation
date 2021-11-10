@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "face-api.js": "^0.22.2",
+    "facefilter": "^2.1.8",
+    "three": "^0.103.0",
+    "three-vrm": "^0.0.17"
+  },
+  "devDependencies": {
+    "esbuild": "^0.13.13"
+  }
+}
