@@ -4,10 +4,10 @@
     "start": "esbuild --bundle src/index.js --outfile=dist/main.js --servedir=dist"
   },
   "dependencies": {
+    "@pixiv/three-vrm": "^0.6.7",
     "face-api.js": "^0.22.2",
     "facefilter": "^2.1.8",
-    "three": "^0.103.0",
-    "three-vrm": "^0.0.17"
+    "three": "^0.133.1"
   },
   "devDependencies": {
     "esbuild": "^0.13.13"
