@@ -69,7 +69,7 @@ const pose = {
 let vrm;
 const loader = new GLTFLoader();
 loader.load(
-  "https://cdn.glitch.com/e9accf7e-65be-4792-8903-f44e1fc88d68%2Fthree-vrm-girl.vrm",
+  "./870618169747943923.vrm",
   async gltf => {
     vrm = await VRM.from(gltf);
     scene.add(vrm.scene);
