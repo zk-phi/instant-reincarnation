@@ -24,8 +24,10 @@ export default class FaceFilterController {
         maxFacedDetected: 1,
         callbackReady: error => error ? reject(error) : resolve(),
         callbackTrack: report => {
-          this.stateRef.rotation = [-report.rx, -report.ry, report.rz];
-          this.stateRef.expression.A = report.expressions[0];
+          if (report.detected) {
+            this.stateRef.rotation = [-report.rx, report.ry, report.rz];
+            this.stateRef.expression.A = report.expressions[0];
+          }
         },
       });
     });
