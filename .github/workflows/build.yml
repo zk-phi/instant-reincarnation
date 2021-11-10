@@ -17,6 +17,10 @@ jobs:
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
+      - name: Reconfigure git to use HTTP authentication (actions/setup-node#214)
+        run: >
+          git config --global url."https://github.com/".insteadOf
+          ssh://git@github.com/
       - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npm run build
