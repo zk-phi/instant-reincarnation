@@ -5,7 +5,8 @@ import {
   Quaternion,
   Euler,
   Vector3,
-  DirectionalLight,
+  // DirectionalLight,
+  AmbientLight,
   Clock,
   GridHelper,
   AxesHelper,
@@ -41,8 +42,7 @@ const scene = new Scene();
 scene.add(new GridHelper(10, 10));
 scene.add(new AxesHelper(0.5));
 
-const light = new DirectionalLight(0xffffff);
-light.position.set(1.0, 1.0, 1.0).normalize();
+const light = new AmbientLight(0xffffff, 10.0);
 scene.add(light);
 
 let vrm;
