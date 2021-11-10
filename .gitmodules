@@ -1,0 +1,3 @@
+[submodule "lib/jeelizWeboji"]
+	path = lib/jeelizWeboji
+	url = https://github.com/jeeliz/jeelizWeboji.git
