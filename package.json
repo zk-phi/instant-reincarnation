@@ -4,9 +4,13 @@
     "start": "esbuild --bundle src/index.js --outfile=dist/main.js --servedir=dist"
   },
   "dependencies": {
+    "@mediapipe/camera_utils": "^0.3.1632432234",
+    "@mediapipe/drawing_utils": "^0.3.1620248257",
+    "@mediapipe/holistic": "^0.5.1635989137",
     "@pixiv/three-vrm": "^0.6.7",
     "face-api.js": "^0.22.2",
     "facefilter": "jeeliz/jeelizFaceFilter#3ba5e3c",
+    "kalidokit": "^1.0.4",
     "three": "^0.133.1"
   },
   "devDependencies": {
