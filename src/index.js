@@ -74,7 +74,8 @@ const webcam = new Camera(video, {
 let vrm;
 const loader = new GLTFLoader();
 loader.load(
-  "./8988580958909680445.vrm",
+  /* "./8988580958909680445.vrm", */
+  "./4490707391186690073.vrm",
   async gltf => {
     vrm = await VRM.from(gltf);
     scene.add(vrm.scene);
