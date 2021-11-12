@@ -13,6 +13,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { VRM, VRMSchema } from "@pixiv/three-vrm";
 import KalidokitController from "./KalidokitController.js";
+import FaceApiController from "./FaceApiController.js";
 import { Camera } from "@mediapipe/camera_utils";
 
 const width = 800;
@@ -64,7 +65,11 @@ const pose = {
 };
 
 const video = document.createElement("video");
-const webcam = new Camera(video, { onFrame: () => null, width: 320, height: 240 });
+const webcam = new Camera(video, {
+  onFrame: () => null,
+  width: 320,
+  height: 240,
+});
 
 let vrm;
 const loader = new GLTFLoader();
@@ -79,6 +84,7 @@ loader.load(
     clock.start();
     webcam.start();
     new KalidokitController(vrm, video).start();
+    new FaceApiController(vrm, video).start();
   },
   progress => {
     console.info((100.0 * progress.loaded / progress.total).toFixed(2) + '% loaded' );
