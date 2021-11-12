@@ -22,7 +22,7 @@ export default class FaceExpressionsController {
               const rot = FaceExpressions.get_rotationStabilized();
               this.stateRef.rotation = [-rot[0] * 1.5 + 0.25, -rot[1], rot[2]];
               const morphs = FaceExpressions.get_morphTargetInfluencesStabilized();
-              this.stateRef.expression.A = morphs[6];
+              this.stateRef.expression.A = morphs[6] * 5.0;
               this.stateRef.expression.BlinkR = morphs[8] * 100.0;
               this.stateRef.expression.BlinkL = morphs[9] * 100.0;
             }
