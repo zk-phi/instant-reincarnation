@@ -1,0 +1,31 @@
+{
+  "name": "@mediapipe/face_mesh",
+  "version": "0.4.1633559619",
+  "description": "Mediapipe Face Mesh Solution",
+  "main": "face_mesh.js",
+  "module": "face_mesh.js",
+  "jsdelivr": "face_mesh.js",
+  "unpkg": "face_mesh.js",
+  "types": "index.d.ts",
+  "author": "mhays@google.com",
+  "license": "Apache-2.0",
+  "homepage": "https://google.github.io/mediapipe/solutions/face_mesh",
+  "keywords": [ "AR", "ML", "Augmented" ],
+  "devDependencies": {
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+  },
+  "browser": {
+    "node-fetch": false,
+    "util": false,
+    "crypto": false
+  },
+  "sideEffects" : []
+
+,"_resolved": "https://registry.npmjs.org/@mediapipe/face_mesh/-/face_mesh-0.4.1633559619.tgz"
+,"_integrity": "sha512-Vc8cdjxS5+O2gnjWH9KncYpUCVXT0h714KlWAsyqJvJbIgUJBqpppbIx8yWcAzBDxm/5cYSuBI5p5ySIPxzcEg=="
+,"_from": "@mediapipe/face_mesh@0.4.1633559619"
+}

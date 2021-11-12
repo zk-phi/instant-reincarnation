@@ -1,0 +1,31 @@
+{
+  "name": "@mediapipe/holistic",
+  "version": "0.5.1635989137",
+  "description": "Mediapipe Holistic Solution",
+  "main": "holistic.js",
+  "module": "holistic.js",
+  "jsdelivr": "holistic.js",
+  "unpkg": "holistic.js",
+  "types": "index.d.ts",
+  "author": "mhays@google.com",
+  "license": "Apache-2.0",
+  "homepage": "https://google.github.io/mediapipe/solutions/holistic",
+  "keywords": [ "AR", "ML", "Augmented" ],
+  "devDependencies": {
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+  },
+  "browser": {
+    "node-fetch": false,
+    "util": false,
+    "crypto": false
+  },
+  "sideEffects" : []
+
+,"_resolved": "https://registry.npmjs.org/@mediapipe/holistic/-/holistic-0.5.1635989137.tgz"
+,"_integrity": "sha512-iY1bOZ4QUR1jBwJzmaQI6u3BZLYfOTAdj2S8EgXPp/ngGtcyNN3oaVH3eTGUBzYsBd/MXG1RmDzBPd9e9DyKJw=="
+,"_from": "@mediapipe/holistic@0.5.1635989137"
+}
