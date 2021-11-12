@@ -10,9 +10,7 @@ const clamp = Kalidokit.Utils.clamp;
 export default class KalidokitController {
   constructor (vrm) {
     this.vrm = vrm;
-    const holistic = new Holistic({
-      locateFile: file => `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1635989137/${file}`,
-    });
+    const holistic = new Holistic({ locateFile: file => `/holistic/${file}` });
     holistic.setOptions({
       modelComplexity: 1,
       smoothLandmarks: true,
