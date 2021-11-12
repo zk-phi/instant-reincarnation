@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "copy": "cp -r ./node_modules/@mediapipe/face_mesh ./dist/face_mesh",
+    "copy:holistic": "cp -r ./node_modules/@mediapipe/holistic ./dist/holistic",
+    "copy:face_mesh": "cp -r ./node_modules/@mediapipe/face_mesh ./dist/face_mesh",
     "build": "esbuild --bundle src/index.js --sourcemap --outfile=dist/main.js",
     "start": "esbuild --bundle src/index.js --sourcemap --outfile=dist/main.js --servedir=dist"
   },
