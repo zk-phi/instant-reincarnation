@@ -33,10 +33,10 @@ document.body.appendChild(renderer.domElement);
 const camera = new PerspectiveCamera(35, width / height, 0.1, 1000);
 camera.position.set(0, 1.4, 1.2);
 
-// const controls = new OrbitControls(camera, renderer.domElement);
-// controls.target.set(0, 0.85, 0);
-// controls.screenSpacePanning = true;
-// controls.update();
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 1.4, 0);
+controls.screenSpacePanning = true;
+controls.update();
 
 const scene = new Scene();
 scene.add(new GridHelper(10, 10));
