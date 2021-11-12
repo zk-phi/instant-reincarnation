@@ -1,8 +1,6 @@
 {
   "scripts": {
-    "copy:model": "cp -r ./node_modules/@vladmandic/face-api/model ./dist/model",
-    "copy:backend": "cp -r ./node_modules/@tensorflow/tfjs-backend-wasm/dist ./dist/wasm",
-    "copy": "npm run copy:model && npm run copy:backend",
+    "copy": "cp -r ./node_modules/@mediapipe/holistic ./dist/holistic",
     "build": "esbuild --bundle src/index.js --sourcemap --outfile=dist/main.js",
     "start": "esbuild --bundle src/index.js --sourcemap --outfile=dist/main.js --servedir=dist"
   },
