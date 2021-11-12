@@ -29,10 +29,10 @@ renderer.setClearColor(0x00ff00, 0);
 document.body.appendChild(renderer.domElement);
 
 const camera = new PerspectiveCamera(35, width / height, 0.1, 1000);
-camera.position.set(0, 1.4, 1.2);
+camera.position.set(0, 1.3, 1.2);
 
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.target.set(0, 1.4, 0);
+controls.target.set(0, 1.3, 0);
 controls.screenSpacePanning = true;
 controls.update();
 
