@@ -45,6 +45,8 @@ scene.add(new AxesHelper(0.5));
 const light = new AmbientLight(0xffffff, 10.0);
 scene.add(light);
 
+const clock = new Clock();
+
 const pose = {
   [VRMSchema.HumanoidBoneName.LeftShoulder]: {
     rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 0.2)).toArray()
@@ -77,6 +79,7 @@ loader.load(
     vrm.scene.rotation.y = Math.PI;
     vrm.humanoid.setPose(pose);
     vrm.lookAt.target = camera;
+    clock.start();
     /* controller = new FaceFilterController(vrm).control(); */
     /* controller = new FaceExpressionsController(vrm).control(); */
     controller = new KalidokitController(vrm).control();
@@ -90,9 +93,6 @@ loader.load(
 );
 
 /* ---- animation */
-
-const clock = new Clock();
-clock.start();
 
 function update () {
   requestAnimationFrame(update);
