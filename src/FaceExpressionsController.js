@@ -40,14 +40,14 @@ export default class FaceExpressionsController {
             if (FaceExpressions.is_detected()) {
               const rotation = FaceExpressions.get_rotationStabilized();
               const rot = { x: -rotation[0], y: rotation[1], z: -rotation[2] };
-              this.rotatePart("Neck",  [rot.x * -0.2, rot.y * -0.2, rot.z * 0.3], 0.7);
-              this.rotatePart("Hips",  [rot.x *  0.0, rot.y *  0.0, rot.z * 0.0], 0.7);
-              this.rotatePart("Chest", [rot.x *  0.2, rot.y *  0.1, rot.z * 0.1], 0.7);
-              this.rotatePart("Spine", [rot.x *  0.0, rot.y *  0.1, rot.z * 0.0], 0.7);
+              this.rotatePart("Neck",  [rot.x * -0.2, rot.y * -0.2, rot.z * 0.3], 0.6);
+              this.rotatePart("Hips",  [rot.x *  0.0, rot.y *  0.0, rot.z * 0.0], 0.6);
+              this.rotatePart("Chest", [rot.x *  0.2, rot.y *  0.1, rot.z * 0.1], 0.6);
+              this.rotatePart("Spine", [rot.x *  0.0, rot.y *  0.1, rot.z * 0.0], 0.6);
               const morphs = FaceExpressions.get_morphTargetInfluencesStabilized();
-              this.blendShape("A", morphs[6], 0.8);
-              this.blendShape("BlinkR", morphs[8], 0.8);
-              this.blendShape("BlinkL", morphs[9], 0.8);
+              this.blendShape("A", morphs[6], 0.6);
+              this.blendShape("BlinkR", morphs[8], 0.6);
+              this.blendShape("BlinkL", morphs[9], 0.6);
             }
           };
           monitor();

@@ -45,11 +45,11 @@ export default class FaceFilterController {
         callbackTrack: report => {
           if (report.detected) {
             const rot = { x: -report.rx, y: -report.ry, z: report.rz };
-            this.rotatePart("Neck",  [rot.x * -0.2, rot.y * -0.2, rot.z * 0.3], 0.7);
-            this.rotatePart("Hips",  [rot.x *  0.0, rot.y *  0.0, rot.z * 0.0], 0.7);
-            this.rotatePart("Chest", [rot.x *  0.2, rot.y *  0.1, rot.z * 0.1], 0.7);
-            this.rotatePart("Spine", [rot.x *  0.0, rot.y *  0.1, rot.z * 0.0], 0.7);
-            this.blendShape("A", report.expressions[0], 0.8);
+            this.rotatePart("Neck",  [rot.x * -0.2, rot.y * -0.2, rot.z * 0.3], 0.6);
+            this.rotatePart("Hips",  [rot.x *  0.0, rot.y *  0.0, rot.z * 0.0], 0.6);
+            this.rotatePart("Chest", [rot.x *  0.2, rot.y *  0.1, rot.z * 0.1], 0.6);
+            this.rotatePart("Spine", [rot.x *  0.0, rot.y *  0.1, rot.z * 0.0], 0.6);
+            this.blendShape("A", report.expressions[0], 0.6);
           }
         },
       });

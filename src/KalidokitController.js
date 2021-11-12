@@ -59,17 +59,17 @@ export default class KalidokitController {
         video: this.video,
       });
       const rot = face.head;
-      this.rotatePart("Neck",  [rot.x * -0.2, rot.y * -0.2, rot.z * 0.3], 0.7);
-      this.rotatePart("Hips",  [rot.x *  0.0, rot.y *  0.0, rot.z * 0.0], 0.7);
-      this.rotatePart("Chest", [rot.x *  0.2, rot.y *  0.1, rot.z * 0.1], 0.7);
-      this.rotatePart("Spine", [rot.x *  0.0, rot.y *  0.1, rot.z * 0.0], 0.7);
-      this.blendShape("I", face.mouth.shape.I, 0.8);
-      this.blendShape("A", face.mouth.shape.A, 0.8);
-      this.blendShape("E", face.mouth.shape.E, 0.8);
-      this.blendShape("O", face.mouth.shape.O, 0.8);
-      this.blendShape("U", face.mouth.shape.U, 0.8);
-      this.blendShape("BlinkL", 1 - face.eye.l, 0.8);
-      this.blendShape("BlinkR", 1 - face.eye.r, 0.8);
+      this.rotatePart("Neck",  [rot.x * -0.2, rot.y * -0.2, rot.z * 0.3], 0.6);
+      this.rotatePart("Hips",  [rot.x *  0.0, rot.y *  0.0, rot.z * 0.0], 0.6);
+      this.rotatePart("Chest", [rot.x *  0.2, rot.y *  0.1, rot.z * 0.1], 0.6);
+      this.rotatePart("Spine", [rot.x *  0.0, rot.y *  0.1, rot.z * 0.0], 0.6);
+      this.blendShape("I", face.mouth.shape.I, 0.6);
+      this.blendShape("A", face.mouth.shape.A, 0.6);
+      this.blendShape("E", face.mouth.shape.E, 0.6);
+      this.blendShape("O", face.mouth.shape.O, 0.6);
+      this.blendShape("U", face.mouth.shape.U, 0.6);
+      this.blendShape("BlinkL", 1 - face.eye.l, 0.6);
+      this.blendShape("BlinkR", 1 - face.eye.r, 0.6);
     }
   }
 
