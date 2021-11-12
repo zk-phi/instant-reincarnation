@@ -2,40 +2,34 @@ import { Quaternion, Euler, Vector3 } from "three";
 import * as Kalidokit from "kalidokit";
 import { Holistic } from "@mediapipe/holistic";
 import { FaceMesh } from "@mediapipe/face_mesh";
-import { Camera } from "@mediapipe/camera_utils";
 import { VRMSchema } from "@pixiv/three-vrm";
 
 const lerp = Kalidokit.Vector.lerp;
 const clamp = Kalidokit.Utils.clamp;
 
 export default class KalidokitController {
-  constructor (vrm) {
+  constructor (vrm, video) {
     this.vrm = vrm;
-    // const detector = new FaceMesh({ locateFile: file => `/face_mesh/${file}` });
-    // detector.setOptions({
+    this.video = video;
+    // this.detector = new FaceMesh({ locateFile: file => `/face_mesh/${file}` });
+    // this.detector.setOptions({
     //   maxNumFaces: 1,
     //   minDetectionConfidence: 0.7,
     //   minTrackingConfidence: 0.7,
     //   refineFaceLandmarks: true,
     // });
-    // detector.onResults(result => (
+    // this.detector.onResults(result => (
     //   this.updateState(result.multiFaceLandmarks && result.multiFaceLandmarks[0]
     // )));
-    const detector = new Holistic({ locateFile: file => `/holistic/${file}` });
-    detector.setOptions({
+    this.detector = new Holistic({ locateFile: file => `/holistic/${file}` });
+    this.detector.setOptions({
       modelComplexity: 1,
       smoothLandmarks: true,
       minDetectionConfidence: 0.7,
       minTrackingConfidence: 0.7,
       refineFaceLandmarks: true,
     });
-    detector.onResults(result => this.updateState(result.faceLandmarks));
-    this.video = document.createElement("video");
-    this.camera = new Camera(this.video, {
-      onFrame: async () => await detector.send({ image: this.video }),
-      width: 320,
-      height: 240,
-    });
+    this.detector.onResults(result => this.updateState(result.faceLandmarks));
     this.lastLookTarget = new Euler();
   }
 
@@ -73,7 +67,11 @@ export default class KalidokitController {
     }
   }
 
-  control () {
-    this.camera.start();
+  start () {
+    const monitor = async () => {
+      await this.detector.send({ image: this.video });
+      requestAnimationFrame(monitor);
+    };
+    monitor();
   }
 }
