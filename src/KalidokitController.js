@@ -37,12 +37,6 @@ export default class KalidokitController {
     part.quaternion.slerp(quaternion, speed);
   }
 
-  translatePart (name, position, speed) {
-    const part = this.vrm.humanoid.getBoneNode(VRMSchema.HumanoidBoneName[name]);
-    const vec = new Vector3(position.x, position.y, position.z);
-    part.position.lerp(vec, speed);
-  }
-
   blendShape (name, value, speed) {
     const currentValue = this.vrm.blendShapeProxy.getValue(VRMSchema.BlendShapePresetName[name]);
     const lerpValue = lerp(clamp(value, 0, 1), currentValue, 1 - speed);
