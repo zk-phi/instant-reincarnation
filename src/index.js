@@ -12,8 +12,6 @@ import {
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { VRM, VRMSchema } from "@pixiv/three-vrm";
-import FaceFilterController from "./FaceFilterController.js";
-import FaceExpressionsController from "./FaceExpressionsController.js";
 import KalidokitController from "./KalidokitController.js";
 
 const width = 800;
@@ -76,8 +74,6 @@ loader.load(
     vrm.humanoid.setPose(pose);
     vrm.lookAt.target = camera;
     clock.start();
-    /* controller = new FaceFilterController(vrm).control(); */
-    /* controller = new FaceExpressionsController(vrm).control(); */
     controller = new KalidokitController(vrm).control();
   },
   progress => {
