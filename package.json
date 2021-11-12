@@ -1,11 +1,12 @@
 {
   "scripts": {
-    "copy": "cp -r ./node_modules/@mediapipe/holistic ./dist/holistic",
+    "copy": "cp -r ./node_modules/@mediapipe/face_mesh ./dist/face_mesh",
     "build": "esbuild --bundle src/index.js --sourcemap --outfile=dist/main.js",
     "start": "esbuild --bundle src/index.js --sourcemap --outfile=dist/main.js --servedir=dist"
   },
   "dependencies": {
     "@mediapipe/camera_utils": "^0.3.1632432234",
+    "@mediapipe/face_mesh": "^0.4.1633559619",
     "@mediapipe/holistic": "^0.5.1635989137",
     "@pixiv/three-vrm": "^0.6.7",
     "facefilter": "jeeliz/jeelizFaceFilter#3ba5e3c",
