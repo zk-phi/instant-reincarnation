@@ -1,4 +1,4 @@
-import { Quaternion, Euler, Vector3 } from "three";
+import { Quaternion, Euler } from "three";
 import * as Kalidokit from "kalidokit";
 import { Holistic } from "@mediapipe/holistic";
 import { FaceMesh } from "@mediapipe/face_mesh";
