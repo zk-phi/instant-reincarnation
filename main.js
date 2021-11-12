@@ -34455,6 +34455,9 @@
         this.blendShape("U", face.mouth.shape.U, 0.6);
         this.blendShape("BlinkL", 1 - face.eye.l, 0.6);
         this.blendShape("BlinkR", 1 - face.eye.r, 0.6);
+        const lookTarget = new Euler(lerp2(this.lastLookTarget.x, face.pupil.y, 0.4), lerp2(this.lastLookTarget.y, face.pupil.x, 0.4), 0, "XYZ");
+        this.lastLookTarget.copy(lookTarget);
+        this.vrm.lookAt.applyer.lookAt(lookTarget);
       }
     }
     start() {
@@ -101661,7 +101664,6 @@ return a / b;`;
     scene.add(vrm.scene);
     vrm.scene.rotation.y = Math.PI;
     vrm.humanoid.setPose(pose);
-    vrm.lookAt.target = camera;
     clock.start();
     webcam2.start();
     new KalidokitController(vrm, video, clock).start();
