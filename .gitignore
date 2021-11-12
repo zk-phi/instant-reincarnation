@@ -1,2 +1,4 @@
 node_modules
 dist/main.js
+dist/model
+dist/wasm

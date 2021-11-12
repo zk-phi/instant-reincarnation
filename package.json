@@ -1,8 +1,10 @@
 {
   "scripts": {
-    "copy": "cp -r ./node_modules/@vladmandic/face-api/model ./dist",
-    "build": "esbuild --bundle src/index.js --sourcemap --loader:.bin=binary --outfile=dist/main.js",
-    "start": "esbuild --bundle src/index.js --sourcemap --loader:.bin=binary --outfile=dist/main.js --servedir=dist"
+    "copy:model": "cp -r ./node_modules/@vladmandic/face-api/model ./dist/model",
+    "copy:backend": "cp -r ./node_modules/@tensorflow/tfjs-backend-wasm/dist ./dist/wasm",
+    "copy": "npm run copy:model && npm run copy:backend",
+    "build": "esbuild --bundle src/index.js --sourcemap --outfile=dist/main.js",
+    "start": "esbuild --bundle src/index.js --sourcemap --outfile=dist/main.js --servedir=dist"
   },
   "dependencies": {
     "@mediapipe/camera_utils": "^0.3.1632432234",
