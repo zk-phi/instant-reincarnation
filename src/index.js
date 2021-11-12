@@ -84,7 +84,7 @@ loader.load(
     vrm.lookAt.target = camera;
     clock.start();
     webcam.start();
-    new KalidokitController(vrm, video).start();
+    new KalidokitController(vrm, video, clock).start();
     new FaceApiController(vrm, video).start();
   },
   progress => {

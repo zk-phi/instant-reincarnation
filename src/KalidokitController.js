@@ -8,9 +8,10 @@ const lerp = Kalidokit.Vector.lerp;
 const clamp = Kalidokit.Utils.clamp;
 
 export default class KalidokitController {
-  constructor (vrm, video) {
+  constructor (vrm, video, clock) {
     this.vrm = vrm;
     this.video = video;
+    this.clock = clock;
     // this.detector = new FaceMesh({ locateFile: file => `./face_mesh/${file}` });
     // this.detector.setOptions({
     //   maxNumFaces: 1,
@@ -52,11 +53,12 @@ export default class KalidokitController {
         runtime: "mediapipe",
         video: this.video,
       });
+      const breath = 1 - Math.abs(1 - this.clock.elapsedTime % 6 / 3);
       const rot = face.head;
-      this.rotatePart("Neck",  [rot.x * -0.2, rot.y * -0.2, rot.z * 0.3], 0.6);
-      this.rotatePart("Hips",  [rot.x *  0.0, rot.y *  0.0, rot.z * 0.0], 0.6);
-      this.rotatePart("Chest", [rot.x *  0.2, rot.y *  0.1, rot.z * 0.1], 0.6);
-      this.rotatePart("Spine", [rot.x *  0.0, rot.y *  0.1, rot.z * 0.0], 0.6);
+      this.rotatePart("Neck",       [rot.x * -0.2 + breath * -0.1, rot.y * -0.2, rot.z * 0.3], 0.6);
+      this.rotatePart("UpperChest", [rot.x *  0.0 + breath *  0.2, rot.y *  0.0, rot.z * 0.0], 0.6);
+      this.rotatePart("Chest",      [rot.x *  0.2 + breath * -0.1, rot.y *  0.1, rot.z * 0.1], 0.6);
+      this.rotatePart("Spine",      [rot.x *  0.0 + breath *  0.0, rot.y *  0.1, rot.z * 0.0], 0.6);
       this.blendShape("I", face.mouth.shape.I, 0.6);
       this.blendShape("A", face.mouth.shape.A, 0.6);
       this.blendShape("E", face.mouth.shape.E, 0.6);
