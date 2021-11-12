@@ -34413,7 +34413,7 @@
     constructor(vrm2, video2) {
       this.vrm = vrm2;
       this.video = video2;
-      this.detector = new import_holistic.Holistic({ locateFile: (file) => `/holistic/${file}` });
+      this.detector = new import_holistic.Holistic({ locateFile: (file) => `./holistic/${file}` });
       this.detector.setOptions({
         modelComplexity: 1,
         smoothLandmarks: true,
@@ -101586,8 +101586,8 @@ return a / b;`;
       await tfjs_esm_exports.enableProdMode();
       await tfjs_esm_exports.ENV.set("DEBUG", false);
       await tfjs_esm_exports.ready();
-      await nets.tinyFaceDetector.load("/model/");
-      await nets.faceExpressionNet.load("/model/");
+      await nets.tinyFaceDetector.load("./model/");
+      await nets.faceExpressionNet.load("./model/");
       const options = new TinyFaceDetectorOptions({
         scoreThreshold: 0.2
       });
