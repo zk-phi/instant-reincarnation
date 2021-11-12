@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "postinstall": "npm run copy:holistic && npm run copy:face_mesh && npm run copy:model",
+    "copy": "npm run copy:holistic && npm run copy:face_mesh && npm run copy:model",
     "copy:holistic": "cp -r ./node_modules/@mediapipe/holistic ./dist/holistic",
     "copy:face_mesh": "cp -r ./node_modules/@mediapipe/face_mesh ./dist/face_mesh",
     "copy:model": "cp -r ./node_modules/@vladmandic/face-api/model ./dist/model",
