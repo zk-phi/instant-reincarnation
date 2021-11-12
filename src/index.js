@@ -92,7 +92,12 @@ clock.start();
 
 const state = {
   rotation: [0, 0, 0],
-  expression: { A: 0, BlinkL: 0, BlinkR: 0 },
+  expression: {
+    A: 0,
+    O: 0,
+    BlinkL: 0,
+    BlinkR: 0,
+  },
 };
 
 function update () {
@@ -100,9 +105,9 @@ function update () {
   const delta = clock.getDelta();
   if (vrm) {
     vrm.update(delta);
-    vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName.A, state.expression.A);
-    vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName.BlinkL, state.expression.BlinkL);
-    vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName.BlinkR, state.expression.BlinkR);
+    Object.keys(state.expression).forEach(key => {
+      vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName[key], state.expression[key] || 0);
+    });
     const head = vrm.humanoid.getBoneNode(VRMSchema.HumanoidBoneName.Head);
     head.rotation.set(...state.rotation, 'ZXY');
   }
