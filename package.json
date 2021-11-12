@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "build": "esbuild --bundle src/index.js --outfile=dist/main.js",
-    "start": "esbuild --bundle src/index.js --outfile=dist/main.js --servedir=dist"
+    "build": "esbuild --bundle src/index.js --sourcemap --outfile=dist/main.js",
+    "start": "esbuild --bundle src/index.js --sourcemap --outfile=dist/main.js --servedir=dist"
   },
   "dependencies": {
     "@mediapipe/camera_utils": "^0.3.1632432234",
