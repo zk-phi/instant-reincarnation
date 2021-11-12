@@ -42,8 +42,11 @@ export default class KalidokitController {
   }
 
   updateState (result) {
-    if (result.faceLandmarks) {
-      const face = Kalidokit.Face.solve(result.faceLandmarks, {
+    const landmarks = result.faceLandmarks || (
+      result.multiFaceLandmarks && result.multiFaceLandmarks[0]
+    );
+    if (landmarks) {
+      const face = Kalidokit.Face.solve(landmarks, {
         runtime: "mediapipe",
         video: this.video,
       });
