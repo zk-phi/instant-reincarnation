@@ -66,16 +66,18 @@ const pose = {
 };
 
 let vrm;
+let controller;
 const loader = new GLTFLoader();
 loader.load(
   "./8988580958909680445.vrm",
   async gltf => {
     vrm = await VRM.from(gltf);
     scene.add(vrm.scene);
-    const hips = vrm.humanoid.getBoneNode(VRMSchema.HumanoidBoneName.Hips);
-    hips.rotation.y = Math.PI;
+    vrm.scene.rotation.y = Math.PI;
     vrm.humanoid.setPose(pose);
     vrm.lookAt.target = camera;
+    /* controller = new FaceFilterController(vrm).control(); */
+    controller = new FaceExpressionsController(vrm).control();
   },
   progress => {
     console.info((100.0 * progress.loaded / progress.total).toFixed(2) + '% loaded' );
@@ -85,35 +87,17 @@ loader.load(
   },
 );
 
-const clock = new Clock();
-clock.start();
-
 /* ---- animation */
 
-const state = {
-  rotation: [0, 0, 0],
-  expression: {
-    A: 0,
-    O: 0,
-    BlinkL: 0,
-    BlinkR: 0,
-  },
-};
+const clock = new Clock();
+clock.start();
 
 function update () {
   requestAnimationFrame(update);
   const delta = clock.getDelta();
   if (vrm) {
     vrm.update(delta);
-    Object.keys(state.expression).forEach(key => {
-      vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName[key], state.expression[key] || 0);
-    });
-    const head = vrm.humanoid.getBoneNode(VRMSchema.HumanoidBoneName.Head);
-    head.rotation.set(...state.rotation, 'ZXY');
   }
   renderer.render(scene, camera);
 };
 update();
-
-/* new FaceFilterController(state).control(); */
-new FaceExpressionsController(state).control();

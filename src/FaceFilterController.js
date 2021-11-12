@@ -1,6 +1,7 @@
 import FaceFilter from "facefilter/dist/jeelizFaceFilter.module.js";
 import Resizer from "facefilter/helpers/JeelizResizer.js";
 import NNC from "facefilter/neuralNets/NN_DEFAULT.json";
+import { VRMSchema } from "@pixiv/three-vrm";
 
 export default class FaceFilterController {
   static async resizeCanvas (canvas) {
@@ -9,9 +10,9 @@ export default class FaceFilterController {
     });
   }
 
-  constructor (stateRef) {
+  constructor (vrm) {
     this.canvas = document.createElement("canvas");
-    this.stateRef = stateRef;
+    this.vrm = vrm;
   }
 
   async control () {
@@ -25,8 +26,12 @@ export default class FaceFilterController {
         callbackReady: error => error ? reject(error) : resolve(),
         callbackTrack: report => {
           if (report.detected) {
-            this.stateRef.rotation = [-report.rx, report.ry, report.rz];
-            this.stateRef.expression.A = report.expressions[0];
+            const head = this.vrm.humanoid.getBoneNode(VRMSchema.HumanoidBoneName.Head);
+            head.rotation.set(-report.rx, report.ry, report.rz, 'ZXY');
+            this.vrm.blendShapeProxy.setValue(
+              VRMSchema.BlendShapePresetName.A,
+              report.expressions[0],
+            );
           }
         },
       });
