@@ -55,17 +55,17 @@ export default class KalidokitController {
       });
       const breath = 1 - Math.abs(1 - this.clock.elapsedTime % 6 / 3);
       const rot = face.head;
-      this.rotatePart("Neck",       [rot.x * -0.2 + breath * -0.1, rot.y * -0.2, rot.z * 0.3], 0.6);
-      this.rotatePart("UpperChest", [rot.x *  0.0 + breath *  0.2, rot.y *  0.0, rot.z * 0.0], 0.6);
-      this.rotatePart("Chest",      [rot.x *  0.2 + breath * -0.1, rot.y *  0.1, rot.z * 0.1], 0.6);
-      this.rotatePart("Spine",      [rot.x *  0.0 + breath *  0.0, rot.y *  0.1, rot.z * 0.0], 0.6);
-      this.blendShape("I", face.mouth.shape.I, 0.6);
-      this.blendShape("A", face.mouth.shape.A, 0.6);
-      this.blendShape("E", face.mouth.shape.E, 0.6);
-      this.blendShape("O", face.mouth.shape.O, 0.6);
-      this.blendShape("U", face.mouth.shape.U, 0.6);
-      this.blendShape("BlinkL", 1 - face.eye.l, 0.6);
-      this.blendShape("BlinkR", 1 - face.eye.r, 0.6);
+      this.rotatePart("Neck",       [rot.x * -.2 + breath * -.1, rot.y * -.2, rot.z * .20], .6);
+      this.rotatePart("UpperChest", [rot.x *  .1 + breath *  .2, rot.y *  .1, rot.z * .05], .6);
+      this.rotatePart("Chest",      [rot.x *  .0 + breath * -.1, rot.y *  .0, rot.z * .00], .6);
+      this.rotatePart("Spine",      [rot.x *  .1 + breath *  .0, rot.y *  .1, rot.z * .05], .6);
+      this.blendShape("I", face.mouth.shape.I, .6);
+      this.blendShape("A", face.mouth.shape.A, .6);
+      this.blendShape("E", face.mouth.shape.E, .6);
+      this.blendShape("O", face.mouth.shape.O, .6);
+      this.blendShape("U", face.mouth.shape.U, .6);
+      this.blendShape("BlinkL", 1 - face.eye.l, .6);
+      this.blendShape("BlinkR", 1 - face.eye.r, .6);
     }
   }
 
