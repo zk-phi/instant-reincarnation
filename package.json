@@ -1,13 +1,15 @@
 {
   "scripts": {
-    "build": "esbuild --bundle src/index.js --sourcemap --outfile=dist/main.js",
-    "start": "esbuild --bundle src/index.js --sourcemap --outfile=dist/main.js --servedir=dist"
+    "copy": "cp -r ./node_modules/@vladmandic/face-api/model ./dist",
+    "build": "esbuild --bundle src/index.js --sourcemap --loader:.bin=binary --outfile=dist/main.js",
+    "start": "esbuild --bundle src/index.js --sourcemap --loader:.bin=binary --outfile=dist/main.js --servedir=dist"
   },
   "dependencies": {
     "@mediapipe/camera_utils": "^0.3.1632432234",
     "@mediapipe/drawing_utils": "^0.3.1620248257",
     "@mediapipe/holistic": "^0.5.1635989137",
     "@pixiv/three-vrm": "^0.6.7",
+    "@tensorflow/tfjs-backend-wasm": "^3.11.0",
     "@vladmandic/face-api": "^1.5.7",
     "facefilter": "jeeliz/jeelizFaceFilter#3ba5e3c",
     "kalidokit": "^1.0.4",
