@@ -25,7 +25,7 @@ const renderer = new WebGLRenderer({
 });
 renderer.setSize(width, height);
 renderer.setPixelRatio(devicePixelRatio);
-renderer.setClearColor(0xffffff);
+renderer.setClearColor(0x00ff00, 0);
 document.body.appendChild(renderer.domElement);
 
 const camera = new PerspectiveCamera(35, width / height, 0.1, 1000);
