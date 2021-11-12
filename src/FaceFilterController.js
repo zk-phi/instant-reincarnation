@@ -44,11 +44,11 @@ export default class FaceFilterController {
         callbackReady: error => error ? reject(error) : resolve(),
         callbackTrack: report => {
           if (report.detected) {
-            const head = { x: -report.rx, y: -report.ry, z: report.rz };
-            this.rotatePart("Neck",  [head.x * 0.2, head.y * 0.0, head.z * 0.2], 0.7);
-            this.rotatePart("Hips",  [head.x * 0.0, head.y * 0.3, head.z * 0.0], 0.7);
-            this.rotatePart("Chest", [head.x * 0.1, head.y * 0.0, head.z * 0.1], 0.7);
-            this.rotatePart("Spine", [head.x * 0.1, head.y * 0.0, head.z * 0.1], 0.7);
+            const rot = { x: -report.rx, y: -report.ry, z: report.rz };
+            this.rotatePart("Neck",  [rot.x * -0.2, rot.y * -0.2, rot.z * 0.3], 0.7);
+            this.rotatePart("Hips",  [rot.x *  0.0, rot.y *  0.0, rot.z * 0.0], 0.7);
+            this.rotatePart("Chest", [rot.x *  0.2, rot.y *  0.1, rot.z * 0.1], 0.7);
+            this.rotatePart("Spine", [rot.x *  0.0, rot.y *  0.1, rot.z * 0.0], 0.7);
             this.blendShape("A", report.expressions[0], 0.8);
           }
         },

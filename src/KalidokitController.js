@@ -50,10 +50,11 @@ export default class KalidokitController {
         runtime: "mediapipe",
         video: this.video,
       });
-      this.rotatePart("Neck",  [face.head.x * 0.2, face.head.y * 0.0, face.head.z * 0.2], 0.7);
-      this.rotatePart("Hips",  [face.head.x * 0.0, face.head.y * 0.3, face.head.z * 0.0], 0.7);
-      this.rotatePart("Chest", [face.head.x * 0.1, face.head.y * 0.0, face.head.z * 0.1], 0.7);
-      this.rotatePart("Spine", [face.head.x * 0.1, face.head.y * 0.0, face.head.z * 0.1], 0.7);
+      const rot = face.head;
+      this.rotatePart("Neck",  [rot.x * -0.2, rot.y * -0.2, rot.z * 0.3], 0.7);
+      this.rotatePart("Hips",  [rot.x *  0.0, rot.y *  0.0, rot.z * 0.0], 0.7);
+      this.rotatePart("Chest", [rot.x *  0.2, rot.y *  0.1, rot.z * 0.1], 0.7);
+      this.rotatePart("Spine", [rot.x *  0.0, rot.y *  0.1, rot.z * 0.0], 0.7);
       this.blendShape("I", face.mouth.shape.I, 0.8);
       this.blendShape("A", face.mouth.shape.A, 0.8);
       this.blendShape("E", face.mouth.shape.E, 0.8);
