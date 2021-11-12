@@ -5200,7 +5200,7 @@
     const uuid = _lut[d0 & 255] + _lut[d0 >> 8 & 255] + _lut[d0 >> 16 & 255] + _lut[d0 >> 24 & 255] + "-" + _lut[d1 & 255] + _lut[d1 >> 8 & 255] + "-" + _lut[d1 >> 16 & 15 | 64] + _lut[d1 >> 24 & 255] + "-" + _lut[d2 & 63 | 128] + _lut[d2 >> 8 & 255] + "-" + _lut[d2 >> 16 & 255] + _lut[d2 >> 24 & 255] + _lut[d3 & 255] + _lut[d3 >> 8 & 255] + _lut[d3 >> 16 & 255] + _lut[d3 >> 24 & 255];
     return uuid.toUpperCase();
   }
-  function clamp2(value, min6, max6) {
+  function clamp(value, min6, max6) {
     return Math.max(min6, Math.min(max6, value));
   }
   function euclideanModulo(n2, m2) {
@@ -5310,7 +5310,7 @@
     DEG2RAD,
     RAD2DEG,
     generateUUID,
-    clamp: clamp2,
+    clamp,
     euclideanModulo,
     mapLinear,
     inverseLerp,
@@ -6802,7 +6802,7 @@
       return this.normalize();
     }
     angleTo(q2) {
-      return 2 * Math.acos(Math.abs(clamp2(this.dot(q2), -1, 1)));
+      return 2 * Math.acos(Math.abs(clamp(this.dot(q2), -1, 1)));
     }
     rotateTowards(q2, step5) {
       const angle = this.angleTo(q2);
@@ -7286,7 +7286,7 @@
       if (denominator === 0)
         return Math.PI / 2;
       const theta = this.dot(v2) / denominator;
-      return Math.acos(clamp2(theta, -1, 1));
+      return Math.acos(clamp(theta, -1, 1));
     }
     distanceTo(v2) {
       return Math.sqrt(this.distanceToSquared(v2));
@@ -8700,7 +8700,7 @@
       const m31 = te2[2], m32 = te2[6], m33 = te2[10];
       switch (order) {
         case "XYZ":
-          this._y = Math.asin(clamp2(m13, -1, 1));
+          this._y = Math.asin(clamp(m13, -1, 1));
           if (Math.abs(m13) < 0.9999999) {
             this._x = Math.atan2(-m23, m33);
             this._z = Math.atan2(-m12, m11);
@@ -8710,7 +8710,7 @@
           }
           break;
         case "YXZ":
-          this._x = Math.asin(-clamp2(m23, -1, 1));
+          this._x = Math.asin(-clamp(m23, -1, 1));
           if (Math.abs(m23) < 0.9999999) {
             this._y = Math.atan2(m13, m33);
             this._z = Math.atan2(m21, m22);
@@ -8720,7 +8720,7 @@
           }
           break;
         case "ZXY":
-          this._x = Math.asin(clamp2(m32, -1, 1));
+          this._x = Math.asin(clamp(m32, -1, 1));
           if (Math.abs(m32) < 0.9999999) {
             this._y = Math.atan2(-m31, m33);
             this._z = Math.atan2(-m12, m22);
@@ -8730,7 +8730,7 @@
           }
           break;
         case "ZYX":
-          this._y = Math.asin(-clamp2(m31, -1, 1));
+          this._y = Math.asin(-clamp(m31, -1, 1));
           if (Math.abs(m31) < 0.9999999) {
             this._x = Math.atan2(m32, m33);
             this._z = Math.atan2(m21, m11);
@@ -8740,7 +8740,7 @@
           }
           break;
         case "YZX":
-          this._z = Math.asin(clamp2(m21, -1, 1));
+          this._z = Math.asin(clamp(m21, -1, 1));
           if (Math.abs(m21) < 0.9999999) {
             this._x = Math.atan2(-m23, m22);
             this._y = Math.atan2(-m31, m11);
@@ -8750,7 +8750,7 @@
           }
           break;
         case "XZY":
-          this._z = Math.asin(-clamp2(m12, -1, 1));
+          this._z = Math.asin(-clamp(m12, -1, 1));
           if (Math.abs(m12) < 0.9999999) {
             this._x = Math.atan2(m32, m22);
             this._y = Math.atan2(m13, m11);
@@ -10096,8 +10096,8 @@
     }
     setHSL(h2, s2, l3) {
       h2 = euclideanModulo(h2, 1);
-      s2 = clamp2(s2, 0, 1);
-      l3 = clamp2(l3, 0, 1);
+      s2 = clamp(s2, 0, 1);
+      l3 = clamp(l3, 0, 1);
       if (s2 === 0) {
         this.r = this.g = this.b = l3;
       } else {
@@ -22183,13 +22183,13 @@
         vec.crossVectors(tangents[i2 - 1], tangents[i2]);
         if (vec.length() > Number.EPSILON) {
           vec.normalize();
-          const theta = Math.acos(clamp2(tangents[i2 - 1].dot(tangents[i2]), -1, 1));
+          const theta = Math.acos(clamp(tangents[i2 - 1].dot(tangents[i2]), -1, 1));
           normals[i2].applyMatrix4(mat.makeRotationAxis(vec, theta));
         }
         binormals[i2].crossVectors(tangents[i2], normals[i2]);
       }
       if (closed === true) {
-        let theta = Math.acos(clamp2(normals[0].dot(normals[segments]), -1, 1));
+        let theta = Math.acos(clamp(normals[0].dot(normals[segments]), -1, 1));
         theta /= segments;
         if (tangents[0].dot(vec.crossVectors(normals[0], normals[segments])) > 0) {
           theta = -theta;
@@ -24170,7 +24170,7 @@
       this.ior = 1.5;
       Object.defineProperty(this, "reflectivity", {
         get: function() {
-          return clamp2(2.5 * (this.ior - 1) / (this.ior + 1), 0, 1);
+          return clamp(2.5 * (this.ior - 1) / (this.ior + 1), 0, 1);
         },
         set: function(reflectivity) {
           this.ior = (1 + 0.4 * reflectivity) / (1 - 0.4 * reflectivity);
@@ -28106,7 +28106,7 @@
         this.phi = 0;
       } else {
         this.theta = Math.atan2(x2, z2);
-        this.phi = Math.acos(clamp2(y2 / this.radius, -1, 1));
+        this.phi = Math.acos(clamp(y2 / this.radius, -1, 1));
       }
       return this;
     }
@@ -28253,7 +28253,7 @@
       const startEnd_startP = _startEnd.dot(_startP);
       let t2 = startEnd_startP / startEnd2;
       if (clampToLine) {
-        t2 = clamp2(t2, 0, 1);
+        t2 = clamp(t2, 0, 1);
       }
       return t2;
     }
@@ -33365,14 +33365,14 @@
   var helpers_exports = {};
   __export(helpers_exports, {
     RestingDefault: () => RestingDefault,
-    clamp: () => clamp3,
+    clamp: () => clamp2,
     remap: () => remap
   });
-  var clamp3 = (val, min6, max6) => {
+  var clamp2 = (val, min6, max6) => {
     return Math.max(Math.min(val, max6), min6);
   };
   var remap = (val, min6, max6) => {
-    return (clamp3(val, min6, max6) - min6) / (max6 - min6);
+    return (clamp2(val, min6, max6) - min6) / (max6 - min6);
   };
   var RestingDefault = {
     Face: {
@@ -33923,8 +33923,8 @@
     };
     LowerArm.r.y = Vector.angleBetween3DCoords(lm[11], lm[13], lm[15]);
     LowerArm.l.y = Vector.angleBetween3DCoords(lm[12], lm[14], lm[16]);
-    LowerArm.r.z = clamp3(LowerArm.r.z, -2.14, 0);
-    LowerArm.l.z = clamp3(LowerArm.l.z, -2.14, 0);
+    LowerArm.r.z = clamp2(LowerArm.r.z, -2.14, 0);
+    LowerArm.l.z = clamp2(LowerArm.l.z, -2.14, 0);
     let Hand = {
       r: Vector.findRotation(Vector.fromArray(lm[15]), Vector.lerp(Vector.fromArray(lm[17]), Vector.fromArray(lm[19]), 0.5)),
       l: Vector.findRotation(Vector.fromArray(lm[16]), Vector.lerp(Vector.fromArray(lm[18]), Vector.fromArray(lm[20]), 0.5))
@@ -33961,9 +33961,9 @@
     LowerArm.z *= -2.14 * invert;
     LowerArm.y *= 2.14 * invert;
     LowerArm.x *= 2.14 * invert;
-    UpperArm.x = clamp3(UpperArm.x, -0.5, Math.PI);
-    LowerArm.x = clamp3(LowerArm.x, -0.3, 0.3);
-    Hand.y = clamp3(Hand.z * 2, -0.6, 0.6);
+    UpperArm.x = clamp2(UpperArm.x, -0.5, Math.PI);
+    LowerArm.x = clamp2(LowerArm.x, -0.3, 0.3);
+    Hand.y = clamp2(Hand.z * 2, -0.6, 0.6);
     Hand.z = Hand.z * -2.3 * invert;
     return {
       UpperArm,
@@ -33983,9 +33983,9 @@
     let spineLength = hipCenter2d.distance(shoulderCenter2d);
     let hips = {
       position: {
-        x: clamp3(-1 * (hipCenter2d.x - 0.65), -1, 1),
+        x: clamp2(-1 * (hipCenter2d.x - 0.65), -1, 1),
         y: 0,
-        z: clamp3(spineLength - 1, -2, 0)
+        z: clamp2(spineLength - 1, -2, 0)
       },
       rotation: null
     };
@@ -34043,9 +34043,9 @@
       r: Vector.findRotation(lm[23], lm[25]),
       l: Vector.findRotation(lm[24], lm[26])
     };
-    UpperLeg.r.z = clamp3(UpperLeg.r.z - 0.5, -0.5, 0);
+    UpperLeg.r.z = clamp2(UpperLeg.r.z - 0.5, -0.5, 0);
     UpperLeg.r.y = 0;
-    UpperLeg.l.z = clamp3(UpperLeg.l.z - 0.5, -0.5, 0);
+    UpperLeg.l.z = clamp2(UpperLeg.l.z - 0.5, -0.5, 0);
     UpperLeg.l.y = 0;
     let LowerLeg = {
       r: Vector.findRotation(lm[25], lm[27]),
@@ -34077,7 +34077,7 @@
   var rigLeg = (UpperLeg, LowerLeg, side = "right") => {
     let invert = side === "Right" ? 1 : -1;
     UpperLeg.z = UpperLeg.z * -2.3 * invert;
-    UpperLeg.x = clamp3(UpperLeg.z * 0.1 * invert, -0.5, Math.PI);
+    UpperLeg.x = clamp2(UpperLeg.z * 0.1 * invert, -0.5, Math.PI);
     LowerLeg.x = LowerLeg.x * -2.14 * 1.3;
     return {
       UpperLeg,
@@ -34215,7 +34215,7 @@
     let eyePoints = points.eye[side];
     let eyeDistance = eyeLidRatio(lm[eyePoints[0]], lm[eyePoints[1]], lm[eyePoints[2]], lm[eyePoints[3]], lm[eyePoints[4]], lm[eyePoints[5]], lm[eyePoints[6]], lm[eyePoints[7]]);
     let maxRatio = 0.285;
-    let ratio = clamp3(eyeDistance / maxRatio, 0, 2);
+    let ratio = clamp2(eyeDistance / maxRatio, 0, 2);
     let eyeOpenRatio = remap(ratio, low, high);
     return {
       norm: eyeOpenRatio,
@@ -34254,8 +34254,8 @@
     return { x: ratioX, y: ratioY };
   };
   var stabilizeBlink = (eye2, headY, { enableWink = true, maxRot = 0.5 } = {}) => {
-    eye2.r = clamp3(eye2.r, 0, 1);
-    eye2.l = clamp3(eye2.l, 0, 1);
+    eye2.r = clamp2(eye2.r, 0, 1);
+    eye2.l = clamp2(eye2.l, 0, 1);
     const blinkDiff = Math.abs(eye2.l - eye2.r);
     const blinkThresh = enableWink ? 0.8 : 1.2;
     const isClosing = eye2.l < 0.3 && eye2.r < 0.3;
@@ -34304,7 +34304,7 @@
     let browHigh = 0.125;
     let browLow = 0.07;
     let browRatio = browDistance / maxBrowRatio - 1;
-    let browRaiseRatio = (clamp3(browRatio, browLow, browHigh) - browLow) / (browHigh - browLow);
+    let browRaiseRatio = (clamp2(browRatio, browLow, browHigh) - browLow) / (browHigh - browLow);
     return browRaiseRatio;
   };
   var calcBrow = (lm) => {
@@ -34338,7 +34338,7 @@
     ratioX = (ratioX - 0.3) * 2;
     const mouthX = ratioX;
     const mouthY = remap(mouthOpen / eyeInnerDistance, 0.17, 0.5);
-    let ratioI = clamp(remap(mouthX, 0, 1) * 2 * remap(mouthY, 0.2, 0.7), 0, 1);
+    let ratioI = clamp2(remap(mouthX, 0, 1) * 2 * remap(mouthY, 0.2, 0.7), 0, 1);
     let ratioA = mouthY * 0.4 + mouthY * (1 - ratioI) * 0.6;
     let ratioU = mouthY * remap(1 - ratioI, 0, 0.3) * 0.1;
     let ratioE = remap(ratioU, 0.2, 1) * (1 - ratioI) * 0.3;
@@ -34408,7 +34408,7 @@
   // src/KalidokitController.js
   var import_holistic = __toModule(require_holistic());
   var lerp2 = Vector.lerp;
-  var clamp4 = helpers_exports.clamp;
+  var clamp3 = helpers_exports.clamp;
   var KalidokitController = class {
     constructor(vrm2, video2) {
       this.vrm = vrm2;
@@ -34432,7 +34432,7 @@
     }
     blendShape(name, value, speed) {
       const currentValue = this.vrm.blendShapeProxy.getValue(h.BlendShapePresetName[name]);
-      const lerpValue = lerp2(clamp4(value, 0, 1), currentValue, 1 - speed);
+      const lerpValue = lerp2(clamp3(value, 0, 1), currentValue, 1 - speed);
       this.vrm.blendShapeProxy.setValue(h.BlendShapePresetName[name], lerpValue);
     }
     updateState(faceLandmarks) {
@@ -40675,7 +40675,7 @@
       swap(array22, counter, index);
     }
   }
-  function clamp5(min6, x2, max6) {
+  function clamp4(min6, x2, max6) {
     return Math.max(min6, Math.min(x2, max6));
   }
   function nearestLargerEven(val) {
@@ -41502,7 +41502,7 @@
     bytesFromStringArray: () => bytesFromStringArray,
     bytesPerElement: () => bytesPerElement,
     checkConversionForErrors: () => checkConversionForErrors,
-    clamp: () => clamp5,
+    clamp: () => clamp4,
     computeStrides: () => computeStrides,
     createScalarValue: () => createScalarValue,
     createShuffledIndices: () => createShuffledIndices,
@@ -45209,7 +45209,7 @@ Manifest JSON has weights with names: ${allManifestWeightNames.join(", ")}.`);
       if (newIndices[i2] < 0) {
         newIndices[i2] += axisSize;
       }
-      newIndices[i2] = clamp5(0, newIndices[i2], inputShape[i2]);
+      newIndices[i2] = clamp4(0, newIndices[i2], inputShape[i2]);
     }
     return newIndices;
   }
@@ -45234,7 +45234,7 @@ Manifest JSON has weights with names: ${allManifestWeightNames.join(", ")}.`);
     if (start < 0) {
       start += axisSize;
     }
-    start = clamp5(0, start, axisSize - 1);
+    start = clamp4(0, start, axisSize - 1);
     return start;
   }
   function stopForAxis(endMask, stopIndices, strides, inputShape, axis, ellipsisMask) {
@@ -45252,9 +45252,9 @@ Manifest JSON has weights with names: ${allManifestWeightNames.join(", ")}.`);
       stop += axisSize;
     }
     if (stride > 0) {
-      stop = clamp5(0, stop, axisSize);
+      stop = clamp4(0, stop, axisSize);
     } else {
-      stop = clamp5(-1, stop, axisSize - 1);
+      stop = clamp4(-1, stop, axisSize - 1);
     }
     return stop;
   }
@@ -101564,7 +101564,7 @@ return a / b;`;
 
   // src/FaceApiController.js
   var lerp3 = Vector.lerp;
-  var clamp6 = helpers_exports.clamp;
+  var clamp5 = helpers_exports.clamp;
   var FaceApiController = class {
     constructor(vrm2, video2) {
       this.vrm = vrm2;
@@ -101572,7 +101572,7 @@ return a / b;`;
     }
     blendShape(name, value, speed) {
       const currentValue = this.vrm.blendShapeProxy.getValue(h.BlendShapePresetName[name]);
-      const lerpValue = lerp3(clamp6(value, 0, 1), currentValue, 1 - speed);
+      const lerpValue = lerp3(clamp5(value, 0, 1), currentValue, 1 - speed);
       this.vrm.blendShapeProxy.setValue(h.BlendShapePresetName[name], lerpValue);
     }
     updateState(expressions) {
