@@ -66,6 +66,14 @@ export default class KalidokitController {
       this.blendShape("U", face.mouth.shape.U, .6);
       this.blendShape("BlinkL", 1 - face.eye.l, .6);
       this.blendShape("BlinkR", 1 - face.eye.r, .6);
+      const lookTarget = new Euler(
+        lerp(this.lastLookTarget.x , face.pupil.y, .4),
+        lerp(this.lastLookTarget.y, face.pupil.x, .4),
+        0,
+        "XYZ",
+      );
+      this.lastLookTarget.copy(lookTarget);
+      this.vrm.lookAt.applyer.lookAt(lookTarget);
     }
   }
 

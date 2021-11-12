@@ -81,7 +81,6 @@ loader.load(
     scene.add(vrm.scene);
     vrm.scene.rotation.y = Math.PI;
     vrm.humanoid.setPose(pose);
-    vrm.lookAt.target = camera;
     clock.start();
     webcam.start();
     new KalidokitController(vrm, video, clock).start();
