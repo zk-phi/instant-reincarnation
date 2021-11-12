@@ -1,7 +1,10 @@
 {
   "scripts": {
+    "postinstall": "npm run copy:holistic && npm run copy:face_mesh && npm run copy:tfjs && npm run copy:model",
     "copy:holistic": "cp -r ./node_modules/@mediapipe/holistic ./dist/holistic",
     "copy:face_mesh": "cp -r ./node_modules/@mediapipe/face_mesh ./dist/face_mesh",
+    "copy:tfjs": "cp -r ./node_modules/@tensorflow/tfjs-backend-wasm/dist ./dist/tfjs",
+    "copy:model": "cp -r ./node_modules/@vladmandic/face-api/model ./dist/model",
     "build": "esbuild --bundle src/index.js --sourcemap --outfile=dist/main.js",
     "start": "esbuild --bundle src/index.js --sourcemap --outfile=dist/main.js --servedir=dist"
   },
@@ -10,6 +13,7 @@
     "@mediapipe/face_mesh": "^0.4.1633559619",
     "@mediapipe/holistic": "^0.5.1635989137",
     "@pixiv/three-vrm": "^0.6.7",
+    "@tensorflow/tfjs-backend-wasm": "^3.11.0",
     "@vladmandic/face-api": "^1.5.7",
     "kalidokit": "^1.0.4",
     "three": "^0.133.1"

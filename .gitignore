@@ -2,3 +2,5 @@ node_modules
 dist/main.js
 dist/holistic
 dist/face_mesh
+dist/tfjs
+dist/model
