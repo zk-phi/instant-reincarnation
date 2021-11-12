@@ -34410,9 +34410,10 @@
   var lerp2 = Vector.lerp;
   var clamp3 = helpers_exports.clamp;
   var KalidokitController = class {
-    constructor(vrm2, video2) {
+    constructor(vrm2, video2, clock2) {
       this.vrm = vrm2;
       this.video = video2;
+      this.clock = clock2;
       this.detector = new import_holistic.Holistic({ locateFile: (file) => `./holistic/${file}` });
       this.detector.setOptions({
         modelComplexity: 1,
@@ -34441,11 +34442,12 @@
           runtime: "mediapipe",
           video: this.video
         });
+        const breath = 1 - Math.abs(1 - this.clock.elapsedTime % 6 / 3);
         const rot = face.head;
-        this.rotatePart("Neck", [rot.x * -0.2, rot.y * -0.2, rot.z * 0.3], 0.6);
-        this.rotatePart("Hips", [rot.x * 0, rot.y * 0, rot.z * 0], 0.6);
-        this.rotatePart("Chest", [rot.x * 0.2, rot.y * 0.1, rot.z * 0.1], 0.6);
-        this.rotatePart("Spine", [rot.x * 0, rot.y * 0.1, rot.z * 0], 0.6);
+        this.rotatePart("Neck", [rot.x * -0.2 + breath * -0.1, rot.y * -0.2, rot.z * 0.2], 0.6);
+        this.rotatePart("UpperChest", [rot.x * 0.1 + breath * 0.2, rot.y * 0.1, rot.z * 0.05], 0.6);
+        this.rotatePart("Chest", [rot.x * 0 + breath * -0.1, rot.y * 0, rot.z * 0], 0.6);
+        this.rotatePart("Spine", [rot.x * 0.1 + breath * 0, rot.y * 0.1, rot.z * 0.05], 0.6);
         this.blendShape("I", face.mouth.shape.I, 0.6);
         this.blendShape("A", face.mouth.shape.A, 0.6);
         this.blendShape("E", face.mouth.shape.E, 0.6);
@@ -101662,7 +101664,7 @@ return a / b;`;
     vrm.lookAt.target = camera;
     clock.start();
     webcam2.start();
-    new KalidokitController(vrm, video).start();
+    new KalidokitController(vrm, video, clock).start();
     new FaceApiController(vrm, video).start();
   }, (progress) => {
     console.info((100 * progress.loaded / progress.total).toFixed(2) + "% loaded");
