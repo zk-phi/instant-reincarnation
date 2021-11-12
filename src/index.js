@@ -8,8 +8,6 @@ import {
   // DirectionalLight,
   AmbientLight,
   Clock,
-  GridHelper,
-  AxesHelper,
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
@@ -39,8 +37,6 @@ controls.screenSpacePanning = true;
 controls.update();
 
 const scene = new Scene();
-scene.add(new GridHelper(10, 10));
-scene.add(new AxesHelper(0.5));
 
 const light = new AmbientLight(0xffffff, 10.0);
 scene.add(light);
