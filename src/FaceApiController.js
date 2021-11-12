@@ -30,8 +30,8 @@ export default class FaceApiController {
     await FaceApi.tf.enableProdMode();
     await FaceApi.tf.ENV.set('DEBUG', false);
     await FaceApi.tf.ready();
-    await FaceApi.nets.tinyFaceDetector.load("/model/");
-    await FaceApi.nets.faceExpressionNet.load("/model/");
+    await FaceApi.nets.tinyFaceDetector.load("./model/");
+    await FaceApi.nets.faceExpressionNet.load("./model/");
     const options = new FaceApi.TinyFaceDetectorOptions({
       scoreThreshold: 0.2,
     });

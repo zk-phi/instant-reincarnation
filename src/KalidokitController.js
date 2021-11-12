@@ -11,7 +11,7 @@ export default class KalidokitController {
   constructor (vrm, video) {
     this.vrm = vrm;
     this.video = video;
-    // this.detector = new FaceMesh({ locateFile: file => `/face_mesh/${file}` });
+    // this.detector = new FaceMesh({ locateFile: file => `./face_mesh/${file}` });
     // this.detector.setOptions({
     //   maxNumFaces: 1,
     //   minDetectionConfidence: 0.7,
@@ -21,7 +21,7 @@ export default class KalidokitController {
     // this.detector.onResults(result => (
     //   this.updateState(result.multiFaceLandmarks && result.multiFaceLandmarks[0]
     // )));
-    this.detector = new Holistic({ locateFile: file => `/holistic/${file}` });
+    this.detector = new Holistic({ locateFile: file => `./holistic/${file}` });
     this.detector.setOptions({
       modelComplexity: 1,
       smoothLandmarks: true,
