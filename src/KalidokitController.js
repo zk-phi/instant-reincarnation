@@ -69,7 +69,9 @@ export default class KalidokitController {
 
   start () {
     const monitor = async () => {
-      await this.detector.send({ image: this.video });
+      if (!this.video.paused) {
+        await this.detector.send({ image: this.video });
+      }
       requestAnimationFrame(monitor);
     };
     monitor();
