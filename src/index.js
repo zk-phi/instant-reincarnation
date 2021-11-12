@@ -16,6 +16,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { VRM, VRMSchema } from "@pixiv/three-vrm";
 import FaceFilterController from "./FaceFilterController.js";
 import FaceExpressionsController from "./FaceExpressionsController.js";
+import KalidokitController from "./KalidokitController.js";
 
 const width = 800;
 const height = 600;
@@ -30,12 +31,12 @@ renderer.setClearColor(0xffffff);
 document.body.appendChild(renderer.domElement);
 
 const camera = new PerspectiveCamera(35, width / height, 0.1, 1000);
-camera.position.set(0, 1.1, 3);
+camera.position.set(0, 1.4, 1.2);
 
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.target.set(0, 0.85, 0);
-controls.screenSpacePanning = true;
-controls.update();
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.target.set(0, 0.85, 0);
+// controls.screenSpacePanning = true;
+// controls.update();
 
 const scene = new Scene();
 scene.add(new GridHelper(10, 10));
@@ -77,7 +78,8 @@ loader.load(
     vrm.humanoid.setPose(pose);
     vrm.lookAt.target = camera;
     /* controller = new FaceFilterController(vrm).control(); */
-    controller = new FaceExpressionsController(vrm).control();
+    /* controller = new FaceExpressionsController(vrm).control(); */
+    controller = new KalidokitController(vrm).control();
   },
   progress => {
     console.info((100.0 * progress.loaded / progress.total).toFixed(2) + '% loaded' );
