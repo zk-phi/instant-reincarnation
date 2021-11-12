@@ -2,7 +2,9 @@ UNLICENSED
 
 # credits
 
-- jeelizFaceFilter, jeelizWeboji by Jeeliz (Licensed under the Apache license)
-- three-vrm by Pixiv (Licensed under the MIT license)
+- mediapipe by Google (Licensed under the MIT license)
 - three by three.js authors (Licensed under the MIT license)
-- AvatarSample_C by VRoid Project
+- three-vrm by Pixiv (Licensed under the MIT license)
+- Kalidokit by yeemachine (Licensed under the MIT License)
+- face-api fork by Vladimir Mandic (Licensed under the MIT License)
+- AvatarSample_[BC] by VRoid Project (See this article for terms https://vroid.pixiv.help/hc/ja/articles/4402394424089)
