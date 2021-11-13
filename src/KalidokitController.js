@@ -19,9 +19,9 @@ export default class KalidokitController {
     //   minTrackingConfidence: 0.7,
     //   refineFaceLandmarks: true,
     // });
-    // this.detector.onResults(result => (
-    //   this.updateState(result.multiFaceLandmarks && result.multiFaceLandmarks[0]
-    // )));
+    // this.detector.onResults(result => this.updateState({
+    //   faceLandmarks: result.multiFaceLandmarks && result.multiFaceLandmarks[0]
+    // }));
     this.detector = new Holistic({ locateFile: file => `./holistic/${file}` });
     this.detector.setOptions({
       modelComplexity: 1,
@@ -30,7 +30,7 @@ export default class KalidokitController {
       minTrackingConfidence: 0.7,
       refineFaceLandmarks: true,
     });
-    this.detector.onResults(result => this.updateState(result.faceLandmarks));
+    this.detector.onResults(result => this.updateState(result));
     this.lastLookTarget = new Euler();
   }
 
@@ -47,9 +47,9 @@ export default class KalidokitController {
     this.vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName[name], lerpValue);
   }
 
-  updateState (faceLandmarks) {
-    if (faceLandmarks) {
-      const face = Kalidokit.Face.solve(faceLandmarks, {
+  updateState (result) {
+    if (result.faceLandmarks) {
+      const face = Kalidokit.Face.solve(result.faceLandmarks, {
         runtime: "mediapipe",
         video: this.video,
       });
