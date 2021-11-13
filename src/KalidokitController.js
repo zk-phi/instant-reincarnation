@@ -12,6 +12,7 @@ export default class KalidokitController {
     this.vrm = vrm;
     this.video = video;
     this.clock = clock;
+    // FaceMesh ... 顔のみ、視線・まばたきは取れない
     // this.detector = new FaceMesh({ locateFile: file => `./face_mesh/${file}` });
     // this.detector.setOptions({
     //   maxNumFaces: 1,
@@ -22,6 +23,7 @@ export default class KalidokitController {
     // this.detector.onResults(result => this.updateState({
     //   faceLandmarks: result.multiFaceLandmarks && result.multiFaceLandmarks[0]
     // }));
+    // Holistic ... フルトラ、視線・まばたきも取れる
     this.detector = new Holistic({ locateFile: file => `./holistic/${file}` });
     this.detector.setOptions({
       modelComplexity: 1,
