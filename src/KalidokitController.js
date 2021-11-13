@@ -32,6 +32,7 @@ export default class KalidokitController {
     });
     this.detector.onResults(result => this.updateState(result));
     this.lastLookTarget = new Euler();
+    this.stopped = false;
   }
 
   rotatePart (name, rotation, speed) {
@@ -82,8 +83,15 @@ export default class KalidokitController {
       if (!this.video.paused) {
         await this.detector.send({ image: this.video });
       }
-      requestAnimationFrame(monitor);
+      if (!this.stopped) {
+        requestAnimationFrame(monitor);
+      }
     };
+    this.stopped = false;
     monitor();
+  }
+
+  stop () {
+    this.stopped = true;
   }
 }

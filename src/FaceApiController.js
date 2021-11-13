@@ -9,6 +9,7 @@ export default class FaceApiController {
   constructor (vrm, video) {
     this.vrm = vrm;
     this.video = video;
+    this.stopped = false;
   }
 
   blendShape (name, value, speed) {
@@ -42,8 +43,15 @@ export default class FaceApiController {
           this.updateState(result.expressions);
         }
       }
-      requestAnimationFrame(monitor);
+      if (!this.stopped) {
+        requestAnimationFrame(monitor);
+      }
     };
+    this.stopped = false;
     monitor();
+  }
+
+  stop () {
+    this.stopped = true;
   }
 }
