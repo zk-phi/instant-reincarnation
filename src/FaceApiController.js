@@ -34,6 +34,7 @@ export default class FaceApiController {
     await FaceApi.nets.tinyFaceDetector.load("./model/");
     await FaceApi.nets.faceExpressionNet.load("./model/");
     const options = new FaceApi.TinyFaceDetectorOptions({
+      inputSize: Math.max(this.video.width, this.video.height),
       scoreThreshold: 0.2,
     });
     const monitor = async () => {
