@@ -9,9 +9,8 @@ import {
   AmbientLight,
   Clock,
 } from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { VRM, VRMSchema } from "@pixiv/three-vrm";
+import VRMDriver from "./VRMDriver.js";
 import KalidokitController from "./KalidokitController.js";
 import FaceApiController from "./FaceApiController.js";
 import { Camera } from "@mediapipe/camera_utils";
@@ -43,27 +42,6 @@ scene.add(light);
 
 const clock = new Clock();
 
-const pose = {
-  [VRMSchema.HumanoidBoneName.LeftShoulder]: {
-    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 0.2)).toArray()
-  },
-  [VRMSchema.HumanoidBoneName.RightShoulder]: {
-    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -0.2)).toArray()
-  },
-  [VRMSchema.HumanoidBoneName.LeftUpperArm]: {
-    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 1.1)).toArray()
-  },
-  [VRMSchema.HumanoidBoneName.RightUpperArm]: {
-    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -1.1)).toArray()
-  },
-  [VRMSchema.HumanoidBoneName.LeftLowerArm]: {
-    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 0.1)).toArray()
-  },
-  [VRMSchema.HumanoidBoneName.RightLowerArm]: {
-    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -0.1)).toArray()
-  },
-};
-
 const video = document.createElement("video");
 const webcam = new Camera(video, {
   onFrame: () => null,
@@ -72,35 +50,50 @@ const webcam = new Camera(video, {
 });
 
 let vrm;
-const loader = new GLTFLoader();
-loader.load(
+
+const driver = new VRMDriver();
+const pose = {
+  [driver.Schema.Bones.LeftShoulder]: {
+    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 0.2)).toArray()
+  },
+  [driver.Schema.Bones.RightShoulder]: {
+    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -0.2)).toArray()
+  },
+  [driver.Schema.Bones.LeftUpperArm]: {
+    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 1.1)).toArray()
+  },
+  [driver.Schema.Bones.RightUpperArm]: {
+    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -1.1)).toArray()
+  },
+  [driver.Schema.Bones.LeftLowerArm]: {
+    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 0.1)).toArray()
+  },
+  [driver.Schema.Bones.RightLowerArm]: {
+    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -0.1)).toArray()
+  },
+};
+
+driver.initialize(
   /* "./8988580958909680445.vrm", */
   "./4490707391186690073.vrm",
-  async gltf => {
-    vrm = await VRM.from(gltf);
-    scene.add(vrm.scene);
-    vrm.scene.rotation.y = Math.PI;
-    vrm.humanoid.setPose(pose);
-    clock.start();
-    webcam.start();
-    new KalidokitController(vrm, video, clock).start();
-    new FaceApiController(vrm, video).start();
-  },
-  progress => {
-    console.info((100.0 * progress.loaded / progress.total).toFixed(2) + '% loaded' );
-  },
-  error => {
-    console.error(error);
-  },
-);
+).then(() => {
+  scene.add(driver.getSceneObject());
+  driver.setPose(pose);
+  clock.start();
+  webcam.start();
+  new KalidokitController(driver, video, clock).start(); // face angle
+  new FaceApiController(driver, video).start(); // face expressions
+}).catch(error => {
+  throw error;
+});
 
 /* ---- animation */
 
 function update () {
   requestAnimationFrame(update);
   const delta = clock.getDelta();
-  if (vrm) {
-    vrm.update(delta);
+  if (driver.initialized) {
+    driver.update(delta);
   }
   renderer.render(scene, camera);
 };

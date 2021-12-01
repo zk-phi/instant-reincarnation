@@ -1,15 +1,13 @@
-import { Quaternion, Euler } from "three";
+import { Euler } from "three";
 import * as Kalidokit from "kalidokit";
 import { Holistic } from "@mediapipe/holistic";
 import { FaceMesh } from "@mediapipe/face_mesh";
-import { VRMSchema } from "@pixiv/three-vrm";
 
 const lerp = Kalidokit.Vector.lerp;
-const clamp = Kalidokit.Utils.clamp;
 
 export default class KalidokitController {
-  constructor (vrm, video, clock) {
-    this.vrm = vrm;
+  constructor (driver, video, clock) {
+    this.driver = driver;
     this.video = video;
     this.clock = clock;
     // FaceMesh ... 顔のみ、視線・まばたきは取れない
@@ -37,17 +35,12 @@ export default class KalidokitController {
     this.stopped = false;
   }
 
-  rotatePart (name, rotation, speed) {
-    const part = this.vrm.humanoid.getBoneNode(VRMSchema.HumanoidBoneName[name]);
-    const euler = new Euler(rotation[0], rotation[1], rotation[2]);
-    const quaternion = new Quaternion().setFromEuler(euler);
-    part.quaternion.slerp(quaternion, speed);
+  rotateBone (name, vector, speed) {
+    this.driver.rotateBone(this.driver.Schema.Bones[name], vector, speed);
   }
 
   blendShape (name, value, speed) {
-    const currentValue = this.vrm.blendShapeProxy.getValue(VRMSchema.BlendShapePresetName[name]);
-    const lerpValue = lerp(clamp(value, 0, 1), currentValue, 1 - speed);
-    this.vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName[name], lerpValue);
+    this.driver.blendShape(this.driver.Schema.BlendShapes[name], value, speed);
   }
 
   updateState (result) {
@@ -58,13 +51,13 @@ export default class KalidokitController {
       });
       const breath = 1 - Math.abs(1 - this.clock.elapsedTime % 4 / 2);
       const rot = face.head;
-      this.rotatePart("Neck",       [rot.x *  .4 + breath * -.1, rot.y *  .2, rot.z *  .4], .6);
-      this.rotatePart("UpperChest", [rot.x *  .1 + breath *  .2, rot.y *  .1, rot.z *  .1], .6);
-      this.rotatePart("Chest",      [rot.x *  .0 + breath * -.1, rot.y *  .0, rot.z *  .0], .6);
-      this.rotatePart("Spine",      [rot.x *  .1 + breath *  .0, rot.y *  .1, rot.z *  .1], .6);
-      this.rotatePart("Hips",       [rot.x *  .0 + breath *  .0, rot.y *  .1, rot.z *  .0], .6);
-      this.rotatePart("LeftUpperArm",  [breath * -.1, 0.,  1.1], .6)
-      this.rotatePart("RightUpperArm", [breath * -.1, 0., -1.1], .6)
+      this.rotateBone("Neck",       [rot.x *  .4 + breath * -.1, rot.y *  .2, rot.z *  .4], .6);
+      this.rotateBone("UpperChest", [rot.x *  .1 + breath *  .2, rot.y *  .1, rot.z *  .1], .6);
+      this.rotateBone("Chest",      [rot.x *  .0 + breath * -.1, rot.y *  .0, rot.z *  .0], .6);
+      this.rotateBone("Spine",      [rot.x *  .1 + breath *  .0, rot.y *  .1, rot.z *  .1], .6);
+      this.rotateBone("Hips",       [rot.x *  .0 + breath *  .0, rot.y *  .1, rot.z *  .0], .6);
+      this.rotateBone("LeftUpperArm",  [breath * -.1, 0.,  1.1], .6)
+      this.rotateBone("RightUpperArm", [breath * -.1, 0., -1.1], .6)
       this.blendShape("I", face.mouth.shape.I, .6);
       this.blendShape("A", face.mouth.shape.A, .6);
       this.blendShape("E", face.mouth.shape.E, .6);
@@ -79,7 +72,7 @@ export default class KalidokitController {
         "XYZ",
       );
       this.lastLookTarget.copy(lookTarget);
-      this.vrm.lookAt.applyer.lookAt(lookTarget);
+      this.driver.lookAt(lookTarget);
     }
   }
 

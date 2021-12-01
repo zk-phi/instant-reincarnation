@@ -1,21 +1,14 @@
 import * as FaceApi from "@vladmandic/face-api";
-import * as Kalidokit from "kalidokit";
-import { VRMSchema } from "@pixiv/three-vrm";
-
-const lerp = Kalidokit.Vector.lerp;
-const clamp = Kalidokit.Utils.clamp;
 
 export default class FaceApiController {
-  constructor (vrm, video) {
-    this.vrm = vrm;
+  constructor (driver, video) {
+    this.driver = driver;
     this.video = video;
     this.stopped = false;
   }
 
-  blendShape (name, value, speed) {
-    const currentValue = this.vrm.blendShapeProxy.getValue(VRMSchema.BlendShapePresetName[name]);
-    const lerpValue = lerp(clamp(value, 0, 1), currentValue, 1 - speed);
-    this.vrm.blendShapeProxy.setValue(VRMSchema.BlendShapePresetName[name], lerpValue);
+  blendShape (key, value, speed) {
+    this.driver.blendShape(this.driver.Schema.BlendShapes[key], value, speed);
   }
 
   updateState (expressions) {
