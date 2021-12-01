@@ -56,13 +56,15 @@ export default class KalidokitController {
         runtime: "mediapipe",
         video: this.video,
       });
-      const breath = 1 - Math.abs(1 - this.clock.elapsedTime % 6 / 3);
+      const breath = 1 - Math.abs(1 - this.clock.elapsedTime % 4 / 2);
       const rot = face.head;
-      this.rotatePart("Neck",       [rot.x *  .2 + breath * -.1, rot.y *  .2, rot.z *  .3], .6);
+      this.rotatePart("Neck",       [rot.x *  .4 + breath * -.1, rot.y *  .2, rot.z *  .4], .6);
       this.rotatePart("UpperChest", [rot.x *  .1 + breath *  .2, rot.y *  .1, rot.z *  .1], .6);
       this.rotatePart("Chest",      [rot.x *  .0 + breath * -.1, rot.y *  .0, rot.z *  .0], .6);
       this.rotatePart("Spine",      [rot.x *  .1 + breath *  .0, rot.y *  .1, rot.z *  .1], .6);
       this.rotatePart("Hips",       [rot.x *  .0 + breath *  .0, rot.y *  .1, rot.z *  .0], .6);
+      this.rotatePart("LeftUpperArm",  [breath * -.1, 0.,  1.1], .6)
+      this.rotatePart("RightUpperArm", [breath * -.1, 0., -1.1], .6)
       this.blendShape("I", face.mouth.shape.I, .6);
       this.blendShape("A", face.mouth.shape.A, .6);
       this.blendShape("E", face.mouth.shape.E, .6);
