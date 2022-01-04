@@ -36,16 +36,17 @@ export default class VRMDriver {
     },
   };
 
-  constructor () {
+  constructor (url) {
+    this.url = url;
     this.vrm = null;
     this.initialized = false;
   }
 
-  async initialize (url) {
+  async initialize () {
     return new Promise((resolve, reject) => {
       const loader = new GLTFLoader();
       loader.load(
-        url,
+        this.url,
         async gltf => {
           this.vrm = await VRM.from(gltf);
           this.vrm.scene.rotation.y = Math.PI;
@@ -59,12 +60,14 @@ export default class VRMDriver {
   }
 
   blendShape (key, value, speed) {
+    if (key == null) return;
     const currentValue = this.vrm.blendShapeProxy.getValue(key);
     const lerpValue = lerp(clamp(value, 0, 1), currentValue, 1 - speed);
     this.vrm.blendShapeProxy.setValue(key, lerpValue);
   }
 
   rotateBone (key, vec, speed) {
+    if (key == null) return;
     const bone = this.vrm.humanoid.getBoneNode(key);
     const euler = new Euler(vec[0], vec[1], vec[2]);
     const quaternion = new Quaternion().setFromEuler(euler);

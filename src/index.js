@@ -51,34 +51,30 @@ const webcam = new Camera(video, {
 
 let vrm;
 
-const driver = new VRMDriver();
-const pose = {
-  [driver.Schema.Bones.LeftShoulder]: {
-    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 0.2)).toArray()
-  },
-  [driver.Schema.Bones.RightShoulder]: {
-    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -0.2)).toArray()
-  },
-  [driver.Schema.Bones.LeftUpperArm]: {
-    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 1.1)).toArray()
-  },
-  [driver.Schema.Bones.RightUpperArm]: {
-    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -1.1)).toArray()
-  },
-  [driver.Schema.Bones.LeftLowerArm]: {
-    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 0.1)).toArray()
-  },
-  [driver.Schema.Bones.RightLowerArm]: {
-    rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -0.1)).toArray()
-  },
-};
-
-driver.initialize(
-  /* "./8988580958909680445.vrm", */
-  "./4490707391186690073.vrm",
-).then(() => {
+const driver = new VRMDriver("./4490707391186690073.vrm");
+/* const driver = new VRMDriver("./8988580958909680445.vrm"); */
+driver.initialize().then(() => {
   scene.add(driver.getSceneObject());
-  driver.setPose(pose);
+  driver.setPose({
+    [driver.Schema.Bones.LeftShoulder]: {
+      rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 0.2)).toArray()
+    },
+    [driver.Schema.Bones.RightShoulder]: {
+      rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -0.2)).toArray()
+    },
+    [driver.Schema.Bones.LeftUpperArm]: {
+      rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 1.1)).toArray()
+    },
+    [driver.Schema.Bones.RightUpperArm]: {
+      rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -1.1)).toArray()
+    },
+    [driver.Schema.Bones.LeftLowerArm]: {
+      rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, 0.1)).toArray()
+    },
+    [driver.Schema.Bones.RightLowerArm]: {
+      rotation: new Quaternion().setFromEuler(new Euler(0.0, 0.0, -0.1)).toArray()
+    },
+  });
   clock.start();
   webcam.start();
   new KalidokitController(driver, video, clock).start(); // face angle
