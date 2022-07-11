@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@mediapipe/camera_utils": "^0.3.1632432234",
-    "@mediapipe/face_mesh": "^0.4.1633559619",
+    "@mediapipe/face_mesh": "^0.4.1657299874",
     "@mediapipe/holistic": "^0.5.1635989137",
     "@pixiv/three-vrm": "^0.6.7",
     "@vladmandic/face-api": "^1.5.7",
