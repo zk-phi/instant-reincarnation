@@ -12,7 +12,7 @@
     "@mediapipe/face_mesh": "^0.4.1633559619",
     "@mediapipe/holistic": "^0.5.1635989137",
     "@pixiv/three-vrm": "^0.6.7",
-    "@vladmandic/face-api": "^1.5.7",
+    "@vladmandic/face-api": "^1.7.3",
     "kalidokit": "^1.0.5",
     "three": "^0.133.1"
   },
