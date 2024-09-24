@@ -24,8 +24,4 @@
     "crypto": false
   },
   "sideEffects" : []
-
-,"_resolved": "https://registry.npmjs.org/@mediapipe/holistic/-/holistic-0.5.1635989137.tgz"
-,"_integrity": "sha512-iY1bOZ4QUR1jBwJzmaQI6u3BZLYfOTAdj2S8EgXPp/ngGtcyNN3oaVH3eTGUBzYsBd/MXG1RmDzBPd9e9DyKJw=="
-,"_from": "@mediapipe/holistic@0.5.1635989137"
 }

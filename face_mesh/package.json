@@ -24,8 +24,4 @@
     "crypto": false
   },
   "sideEffects" : []
-
-,"_resolved": "https://registry.npmjs.org/@mediapipe/face_mesh/-/face_mesh-0.4.1633559619.tgz"
-,"_integrity": "sha512-Vc8cdjxS5+O2gnjWH9KncYpUCVXT0h714KlWAsyqJvJbIgUJBqpppbIx8yWcAzBDxm/5cYSuBI5p5ySIPxzcEg=="
-,"_from": "@mediapipe/face_mesh@0.4.1633559619"
 }
